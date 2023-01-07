@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/TextPlugin.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.font-opens{
+    font-family: 'Open Sans', sans-serif;
+    color: rgba(255,255,255,0.75);
+}
+
+@font-face {
+    font-family: WakandaForever;
+    src: url(https://cdn.jsdelivr.net/gh/artisticLogicMK/textanimation/WakandaForever-Regular.ttf);
+}
+
+@font-face {
+    font-family: Chinese;
+    src: url(https://cdn.jsdelivr.net/gh/artisticLogicMK/textanimation/ScrapbookChinese-5X6B.ttf);
+}
+
+.font-wakanda{
+    font-family: WakandaForever;
+    color: rgba(255,255,255,0.75);
+}
+
+.font-chinese{
+    font-family: Chinese;
+    color: rgba(255,255,255,0.75);
+}
+
+select option{
+    background-color: #000;
+}
+select option:hover{
+    background-color: #ccc;
+}
+    </style>
+</head>
+<body class="bg-[url(https://firebasestorage.googleapis.com/v0/b/learn-c73c3.appspot.com/o/Misc%2Ftextanim%2F6415261.webp?alt=media&token=8003f3f8-295a-43f0-a5f3-e6b146a1d959)] bg-cover bg-center">
+
+    <div class="table w-full h-screen bg-black/[.87]">
+        <div class="table-cell align-middle">
+
+            <div id="container" class="max-w-2xl mx-auto py-3">
+                
+                <div class="text-white/80 text-center text-base mb-7">
+                    <p class="tops font-wakanda font-thin">Welcome</p>
+                    <p class="tops font-wakanda font-semibold">Text Animation with GSAP</p>
+                </div>
+
+
+                <div id="text" class="border border-white/10 rounded-md p-5 text-white/80 text-base mb-5 text-transparent">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dignissimos exercitationem pariatur nemo, quo cupiditate quis placeat, sit blanditiis aspernatur voluptatum expedita ex delectus quibusdam excepturi. Architecto nemo veritatis debitis ex, atque dolore eligendi non id libero, quibusdam tempore iste!
+                </div>
+
+
+                <div class="w-5/6 mx-auto">
+                    <div class="flex justify-between text-white/70 text-sm">
+                        <div class="">
+                            Select Font:
+                            <select id="selectedFont" class="bg-transparent border border-white/10 px-2 py-0.5 focus:outline-none">
+                                <option value="font-opens">Open Sans</option>
+                                <option value="font-wakanda">Wakanda</option>
+                                <option value="font-chinese">Chinese</option>
+                            </select>
+                        </div>
+
+                        <button onclick="changeText()" class="bg-black/30 rounded-sm border border-white/10 px-2 py-1 text-white/70 focus:outline-none active:bg-transparent">Change Text</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+gsap.registerPlugin(TextPlugin);
+
+var container = document.querySelector("#container")
+gsap.from(container.children, {
+    y: "+100",
+    opacity: 0,
+    delay: 0.5,
+    duration: 1,
+    stagger: 0.35,
+    ease: "back.out(1.7)",
+    clearProps: 'all'
+})
+
+
+for (el of document.getElementsByClassName("tops")) {
+    gsap.to(el, {
+        duration: 2,
+        delay: 1,
+        text: {
+            value: el.textContent,
+            newClass: "font-opens"
+        },
+        ease: "linear"
+    })
+}
+
+
+function animateText(font) {
+    var text = document.querySelector("#text")
+
+    gsap.to(text, {
+        duration: 4,
+        text: {
+            value: text.textContent,
+            newClass: font
+        },
+        ease: "linear"
+    })
+}
+
+animateText("font-opens") //will animate on page open
+
+
+function changeText() {
+    var font = document.querySelector("#selectedFont").value
+    animateText(font)
+}
+    </script>
+</body>
+</html>
